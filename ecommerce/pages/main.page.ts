@@ -1,15 +1,15 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { cookiePopUpHeaderTxt, logInTxt } from '../dicts/main-dict';
+import { cookiePopUpHeaderTxt, logInTxt, yourAccountTxt } from '../dicts/main-dict';
 
 export class MainPage {
     readonly page: Page;
     readonly url: string= 'https://www.komputronik.pl/';
     readonly cookiesApproveButton: Locator;
-    readonly logInButton: Locator;
+    readonly userButton: Locator;
     readonly cookiesPopUp: Locator;
-  notificationPopUp: Locator;
-  noButton: Locator;
-  createAccountButton: Locator;
+    readonly notificationPopUp: Locator;
+    readonly noButton: Locator;
+    readonly createAccountButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -17,7 +17,7 @@ export class MainPage {
         this.cookiesApproveButton = page.locator('#onetrust-accept-btn-handler');
         this.notificationPopUp = page.frameLocator('iframe[title="salesmanago-consent-form-title"]').getByText('Zezwól na otrzymywanie');
         this.noButton = page.frameLocator('iframe[title="salesmanago-consent-form-title"]').getByRole('button', { name: 'NIE' })
-        this.logInButton = page.locator('.inline-flex').first();
+        this.userButton = page.locator('.inline-flex').first();
         this.createAccountButton = page.getByRole('button', { name: 'Załóż konto' })
     }
 
@@ -45,7 +45,18 @@ export class MainPage {
   }
 
     async clickLogInButton() {
-        await this.logInButton.click();
+        await this.userButton.click();
     }
 
+    async checkUserStatus(loggedIn: boolean, logInTxt: string, yourAccountTxt: string) {
+        const userButtonText = await this.userButton.textContent();
+        
+        if (loggedIn) {
+            expect(userButtonText).not.toContain(logInTxt);
+            expect(userButtonText).toContain(yourAccountTxt);
+        } else {
+            expect(userButtonText).toContain(logInTxt);
+            expect(userButtonText).not.toContain(yourAccountTxt);
+        }
+}
 }

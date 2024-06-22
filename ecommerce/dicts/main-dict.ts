@@ -5,3 +5,4 @@ export const cookiesAgreeTxt = 'Zgadzam się na wszystkie';
 export const notificationAgreementHeaderTxt = 'Zezwól na otrzymywanie powiadomień.';
 export const noButtonTxt = 'NIE';
 export const logInTxt = 'Zaloguj';
+export const yourAccountTxt = '  Twoje konto  ';
