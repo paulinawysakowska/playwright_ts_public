@@ -4,6 +4,7 @@ import { additionalVerificationTxt, agreementTxt, emailPlaceholderTxt, pageHeade
 import { faker } from '@faker-js/faker';
 import * as fs from 'fs';
 import { generatePassword } from '../utils/generatePassword';
+import { verifyUrlContains } from '../utils/verifyUrlContains';
 
 
 export class RegisterPage {
@@ -41,6 +42,10 @@ export class RegisterPage {
         this.registerButton = page.locator('button.btn.at-register-submit');
 
 
+    }
+
+    async verifyRegisterPageUrl() {
+        await verifyUrlContains(this.page, this.registerUrl);
     }
 
     async checkRegisterPage() {
