@@ -1,0 +1,59 @@
+import { Page, Locator } from '@playwright/test';
+import { createAccountTxt, logInByFacebookTxt, logInByGoogleTxt, logInHeaderTxt, rememberMeTxt, resetPasswordTxt } from '../dicts/logIn-pop-up-dict';
+import { checkElement } from '../utils/checkElement';
+
+export class LogInPopUpPage {
+    readonly page: Page;
+
+  readonly createAccountButton: Locator;
+  readonly closePopUpButton: Locator;
+  readonly logInTopUpHeader: Locator;
+  readonly loginField: Locator;
+  readonly passwordField: Locator;
+  readonly rememberMeCheckbox: Locator;
+  readonly rememberMeLabel: Locator;
+  readonly passwordRecoverLink: Locator;
+  readonly logInByFacebookButton: Locator;
+  readonly logInByGoogleButton: Locator;
+
+    constructor(page: Page) {
+        this.page = page;
+        this.closePopUpButton = page.locator('button[ng-click="$ctrl.closeLayer()"] > i.i-close-circle');
+        this.logInTopUpHeader = page.getByRole('heading', { name: logInHeaderTxt})
+        this.loginField = page.locator('#login');
+        this.passwordField = page.locator('#password');
+        this.rememberMeCheckbox = page.getByRole('checkbox');
+        this.rememberMeLabel = page.getByText('Zapamiętaj mnie')
+        this.passwordRecoverLink = page.locator('u.text-gray-gravel.cursor-pointer[ng-click="$ctrl.openLayerPasswordReset()"]');
+        this.logInByFacebookButton = page.locator('button.px-8.h-12.text-sm.font-semibold.tracking-wide.rounded.grow.px-2.bg-blue-clear[ng-click="$ctrl.loginByFb()"][ng-if="$ctrl.fbLoginEnabled==\'true\'"]');
+        this.logInByGoogleButton = page.locator('button.px-8.h-12.text-sm.font-semibold.tracking-wide.rounded.grow.px-2.bg-red-pastel[ng-click="$ctrl.loginByGooglePlus()"][ng-if="$ctrl.googlePlusLoginEnabled==\'true\'"]');
+        this.createAccountButton = page.locator('button.px-8.h-12.text-sm.font-semibold.tracking-wide.rounded.text-blue-smalt.border.border-blue-smalt.hover\\:bg-main-gradient.hover\\:text-white.w-full[ng-click="$ctrl.goToRegister($event)"]');
+
+    }
+
+
+    async checkLogInPopup() {
+        const elements = [
+            { locator: this.closePopUpButton, checkClick: true },
+            { locator: this.logInTopUpHeader, text: logInHeaderTxt, checkClick: false },
+            { locator: this.loginField, checkClick: true },
+            { locator: this.passwordField, checkClick: true },
+            { locator: this.rememberMeCheckbox, isCheckbox: true, expectedChecked: true },
+            { locator: this.rememberMeLabel, text: rememberMeTxt },
+            { locator: this.passwordRecoverLink, text: resetPasswordTxt, checkClick: true },
+            { locator: this.logInByFacebookButton, text: logInByFacebookTxt, checkClick: true },
+            { locator: this.logInByGoogleButton, text: logInByGoogleTxt, checkClick: true },
+            { locator: this.createAccountButton, text: createAccountTxt, checkClick: true },
+        ];
+
+        for (const element of elements) {
+            await checkElement(
+                element.locator,
+                element.text ?? null,
+                element.checkClick ?? false,
+                element.isCheckbox ?? false,
+                element.expectedChecked ?? null
+            );
+    }
+}
+}
