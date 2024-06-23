@@ -2,7 +2,6 @@ import { test as base } from '../tests/setup';
 import { MainPage } from '../pages/main.page';
 import { searchPlaceholderTxt } from '../dicts/main-dict';
 import { SearchResultsPage } from '../pages/searchResults.page';
-import { searchValues } from '../pages/main.page';
 
 type Fixtures = {
   performSearch: (searchValue: string) => Promise<void>;

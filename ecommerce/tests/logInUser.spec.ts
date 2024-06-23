@@ -1,25 +1,39 @@
 import { test } from './setup';
 import { MainPage } from '../pages/main.page';
-// import { pageTitle } from '../dicts/main-dict';
 import { LogInPopUpPage } from '../pages/logInPopUp.page';
 import { logInTxt, yourAccountTxt } from '../dicts/main-dict';
+import { attachScreenshot } from '../utils/attachScreenshot';
 
-test.beforeEach(async ({ page }) => {
+const screenshotLabel = 'log-in-test';
+
+test.beforeEach(async ({ page, testInfo }) => {
   const mainPage = new MainPage(page);
   const logInPopUp = new LogInPopUpPage(page);
+
+  await attachScreenshot(testInfo, page, screenshotLabel);
 
   await mainPage.clickLogInButton();
   await logInPopUp.checkLogInPopup();
+
+  await attachScreenshot(testInfo, page, screenshotLabel);
 });
 
-test('check user credentials', async ({ page }) => {
+test('check user credentials', async ({ page, testInfo }) => {
   const mainPage = new MainPage(page);
   const logInPopUp = new LogInPopUpPage(page);
-  
+
+  await attachScreenshot(testInfo, page, screenshotLabel);
+
   await logInPopUp.fillLogInForm();
+
+  await attachScreenshot(testInfo, page, screenshotLabel);
+
   await logInPopUp.selectLogInButton();
-  await page.waitForTimeout(10000); 
+  await page.waitForTimeout(10000);
+
+  await attachScreenshot(testInfo, page, screenshotLabel);
+
   await mainPage.checkUserStatus(true, logInTxt, yourAccountTxt);
 
-  // add cleaning strings
+  await attachScreenshot(testInfo, page, screenshotLabel);
 });
