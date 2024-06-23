@@ -22,6 +22,7 @@ test('create new account', async ({ page }) => {
   await mainPage.clickLogInButton();
   await logInPopUp.checkLogInPopup();
   await logInPopUp.selectCreateAccountButton();
+  await registerPage.verifyRegisterPageUrl();
   await registerPage.checkRegisterPage();
   await registerPage.fillRegistrationForm();
   await registerPage.selectAgreementCheckbox();

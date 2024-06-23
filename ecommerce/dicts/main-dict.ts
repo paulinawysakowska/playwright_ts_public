@@ -6,3 +6,4 @@ export const notificationAgreementHeaderTxt = 'Zezwól na otrzymywanie powiadomi
 export const noButtonTxt = 'NIE';
 export const logInTxt = 'Zaloguj';
 export const yourAccountTxt = '  Twoje konto  ';
+export const searchPlaceholderTxt = 'Wpisz czego szukasz';
