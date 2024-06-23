@@ -4,7 +4,7 @@ export class AddToTheBasketPopUp {
   readonly page: Page;
   readonly productTitle: Locator;
   readonly productPrice: Locator;
-  goToTheBasketButton: Locator;
+  readonly goToTheBasketButton: Locator;
 
   constructor(page: Page) {
     this.page = page;

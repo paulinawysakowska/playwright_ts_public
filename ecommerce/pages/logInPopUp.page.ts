@@ -35,7 +35,7 @@ export class LogInPopUpPage {
     this.loginField = page.locator('#login');
     this.passwordField = page.locator('#password');
     this.rememberMeCheckbox = page.getByRole('checkbox');
-    this.rememberMeLabel = page.getByText('Zapamiętaj mnie');
+    this.rememberMeLabel = page.getByText(rememberMeTxt);
     this.passwordRecoverLink = page.locator(
       'u.text-gray-gravel.cursor-pointer[ng-click="$ctrl.openLayerPasswordReset()"]'
     );

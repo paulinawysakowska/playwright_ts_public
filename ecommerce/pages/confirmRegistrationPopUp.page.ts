@@ -8,9 +8,9 @@ import { checkElement } from '../utils/checkElement';
 
 export class ConfirmationPopUp {
   readonly page: Page;
-  sucessHeader: Locator;
-  successMessage: Locator;
-  understoodButton: Locator;
+  readonly sucessHeader: Locator;
+  readonly successMessage: Locator;
+  readonly understoodButton: Locator;
 
   constructor(page: Page) {
     this.page = page;

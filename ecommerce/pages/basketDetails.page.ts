@@ -5,7 +5,7 @@ export class BasketDetailsPage {
   readonly page: Page;
   readonly productTitle: Locator;
   readonly productPrice: Locator;
-  goToTheBasketButton: Locator;
+  readonly goToTheBasketButton: Locator;
   readonly basketPageUrl: string = '/cart';
 
   constructor(page: Page) {

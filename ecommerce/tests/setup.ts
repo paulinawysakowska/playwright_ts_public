@@ -16,7 +16,6 @@ export const test = baseTest.extend({
     const mainPage = new MainPage(page);
     await mainPage.goToMainPage();
     await mainPage.closeCookiesPopUp();
-    await mainPage.closeNotificationPopUp();
     await mainPage.checkPageTitle(pageTitle);
     await mainPage.checkUserStatus(false, logInTxt, yourAccountTxt);
     await mainPage.checkSearchPlaceholder(searchPlaceholderTxt);

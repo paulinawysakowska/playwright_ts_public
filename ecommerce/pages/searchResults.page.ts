@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { verifyUrlContains } from '../utils/verifyUrlContains';
 import { verifyTextVisibleOrRetry } from '../utils/verifyTextVisibleOrRetry';
-import { filterHeader } from '../dicts/searchResults-dict';
+import { filterHeader, outletFilterTxt } from '../dicts/searchResults-dict';
 import { clickElementAtIndex } from '../utils/clickElementAtIndex';
 import { getElementTextAtIndex } from '../utils/getElementTextAtIndex';
 import { getRandomIndex } from '../utils/getRandomIndex';
@@ -10,13 +10,13 @@ export class SearchResultsPage {
   readonly page: Page;
   readonly searchPageUrl: string = '/category';
   readonly outletFilter: Locator;
-  outletLinks: Locator;
-  productPrices: Locator;
+  readonly outletLinks: Locator;
+  readonly productPrices: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.outletFilter = page.locator('label[for="6335"]');
-    this.outletLinks = page.locator('a:has-text("[oferta Outlet]")');
+    this.outletLinks = page.locator(`a:has-text("${outletFilterTxt}")`);
     this.productPrices = page.locator(
       'div.flex-col.mt-2.inline-flex.flex-wrap > div.text-3xl.font-bold.leading-8'
     );
@@ -41,7 +41,7 @@ export class SearchResultsPage {
     }
     for (let i = 0; i < count; i++) {
       const resultText = await this.outletLinks.nth(i).textContent();
-      expect(resultText).toContain('[oferta Outlet]');
+      expect(resultText).toContain(outletFilterTxt);
     }
     return count;
   }

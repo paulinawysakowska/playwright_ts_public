@@ -5,20 +5,26 @@ import { ProductDetailsPage } from '../pages/productDetails.page';
 import { SearchResultsPage } from '../pages/searchResults.page';
 import { AddToTheBasketPopUp } from '../pages/addToTheBasketPopUp.page';
 import { BasketDetailsPage } from '../pages/basketDetails.page';
+import { attachScreenshot } from '../utils/attachScreenshot';
 
 let productTitle: string;
 let productPrice: string;
+
+const screenshotLabel = 'add-to-basket-test'
 
 test.describe('Add to the basket', () => {
   searchValues.forEach((searchValue) => {
     test(`should add successfully for ${searchValue}`, async ({
       page,
-      performSearch
+      performSearch, 
+      testInfo
     }) => {
       const searchResultsPage = new SearchResultsPage(page);
       const productPage = new ProductDetailsPage(page);
       const addToBasketPopUp = new AddToTheBasketPopUp(page);
       const basketPage = new BasketDetailsPage(page);
+
+      await attachScreenshot(testInfo, page, screenshotLabel)
 
       await performSearch(searchValue);
 
@@ -34,6 +40,8 @@ test.describe('Add to the basket', () => {
 
       await searchResultsPage.clickOutletLinkAtIndex(randomIndex);
 
+      await attachScreenshot(testInfo, page, screenshotLabel)
+
       await productPage.verifyProductDetailsPageUrl();
       await productPage.waitForProductTitle();
 
@@ -44,12 +52,16 @@ test.describe('Add to the basket', () => {
 
       await productPage.clickAddToBasket();
 
+      await attachScreenshot(testInfo, page, screenshotLabel)
+
       await addToBasketPopUp.verifyProductDetailsInPopUp(
         productTitle,
         productPrice
       );
 
       await addToBasketPopUp.goToTheBasket();
+
+      await attachScreenshot(testInfo, page, screenshotLabel)
 
       await basketPage.verifyBasketPageUrl();
       await basketPage.verifyProductDetailsInBasket(productTitle, productPrice);

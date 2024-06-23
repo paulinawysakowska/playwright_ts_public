@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { cookiePopUpHeaderTxt } from '../dicts/main-dict';
+import { cookiePopUpHeaderTxt, noButtonTxt } from '../dicts/main-dict';
 import { checkPlaceholder } from '../utils/checkPlaceholder';
 
 export const searchValues = ['telefon komórkowy', 'apple watch'];
@@ -14,7 +14,7 @@ export class MainPage {
   readonly noButton: Locator;
   readonly createAccountButton: Locator;
   readonly searchButton: Locator;
-  searchInput: Locator;
+  readonly searchInput: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,17 +22,8 @@ export class MainPage {
       name: cookiePopUpHeaderTxt
     });
     this.cookiesApproveButton = page.locator('#onetrust-accept-btn-handler');
-    this.notificationPopUp = page
-      .frameLocator('iframe[title="salesmanago-consent-form-title"]')
-      .getByText('Zezwól na otrzymywanie');
-    this.noButton = page
-      .frameLocator('iframe[title="salesmanago-consent-form-title"]')
-      .getByRole('button', { name: 'NIE' });
     this.userButton = page.locator('.inline-flex').first();
-    (this.createAccountButton = page.getByRole('button', {
-      name: 'Załóż konto'
-    })),
-      (this.searchInput = page.locator('#wp-autocomplete').first());
+    this.searchInput = page.locator('#wp-autocomplete').first();
     this.searchButton = page.locator(
       'button.w-11.h-11.rounded-r-md.outline-none.bg-main-gradient.hover\\:to-blue-smalt[aria-label="Wyszukaj"]'
     );
@@ -51,13 +42,6 @@ export class MainPage {
   async checkPageTitle(expectedTitle: string) {
     const title = await this.page.title();
     expect(title).toBe(expectedTitle);
-  }
-
-  async closeNotificationPopUp() {
-    if (await this.notificationPopUp.isVisible()) {
-      await this.noButton.click();
-      await expect(this.notificationPopUp).not.toBeVisible();
-    }
   }
 
   async clickLogInButton() {
