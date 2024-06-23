@@ -10,13 +10,13 @@ import { attachScreenshot } from '../utils/attachScreenshot';
 let productTitle: string;
 let productPrice: string;
 
-const screenshotLabel = 'add-to-basket-test'
+const screenshotLabel = 'add-to-basket-test';
 
 test.describe('Add to the basket', () => {
   searchValues.forEach((searchValue) => {
     test(`should add successfully for ${searchValue}`, async ({
       page,
-      performSearch, 
+      performSearch,
       testInfo
     }) => {
       const searchResultsPage = new SearchResultsPage(page);
@@ -24,7 +24,7 @@ test.describe('Add to the basket', () => {
       const addToBasketPopUp = new AddToTheBasketPopUp(page);
       const basketPage = new BasketDetailsPage(page);
 
-      await attachScreenshot(testInfo, page, screenshotLabel)
+      await attachScreenshot(testInfo, page, screenshotLabel);
 
       await performSearch(searchValue);
 
@@ -40,7 +40,7 @@ test.describe('Add to the basket', () => {
 
       await searchResultsPage.clickOutletLinkAtIndex(randomIndex);
 
-      await attachScreenshot(testInfo, page, screenshotLabel)
+      await attachScreenshot(testInfo, page, screenshotLabel);
 
       await productPage.verifyProductDetailsPageUrl();
       await productPage.waitForProductTitle();
@@ -52,7 +52,7 @@ test.describe('Add to the basket', () => {
 
       await productPage.clickAddToBasket();
 
-      await attachScreenshot(testInfo, page, screenshotLabel)
+      await attachScreenshot(testInfo, page, screenshotLabel);
 
       await addToBasketPopUp.verifyProductDetailsInPopUp(
         productTitle,
@@ -61,7 +61,7 @@ test.describe('Add to the basket', () => {
 
       await addToBasketPopUp.goToTheBasket();
 
-      await attachScreenshot(testInfo, page, screenshotLabel)
+      await attachScreenshot(testInfo, page, screenshotLabel);
 
       await basketPage.verifyBasketPageUrl();
       await basketPage.verifyProductDetailsInBasket(productTitle, productPrice);
