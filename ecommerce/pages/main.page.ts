@@ -4,7 +4,7 @@ import { checkPlaceholder } from '../utils/checkPlaceholder';
 
 export const searchValues = [
     'telefon komórkowy',
-    // 'laptop',
+    'apple watch',
   ];
 
 export class MainPage {

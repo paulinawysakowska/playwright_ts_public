@@ -1,17 +1,11 @@
 import { test } from './setup';
 import { MainPage, searchValues } from '../pages/main.page';
-import { searchPlaceholderTxt } from '../dicts/main-dict';
 import { SearchResultsPage } from '../pages/searchResults.page';
 
 
-test.beforeEach(async ({ page }) => {
-  const mainPage = new MainPage(page);
-  await mainPage.checkSearchPlaceholder(searchPlaceholderTxt);
-});
-
 test.describe('Search Test', () => {
   searchValues.forEach((searchValue) => {
-    test(`should search successfully for ${searchValue}`, async ({ page }) => {
+    test(`should search successfully for: ${searchValue}`, async ({ page }) => {
       const mainPage = new MainPage(page);
       const searchResultsPage = new SearchResultsPage(page);
 

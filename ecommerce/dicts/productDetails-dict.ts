@@ -1,0 +1,1 @@
+export const addToBasketTxt = 'Dodaj do koszyka';

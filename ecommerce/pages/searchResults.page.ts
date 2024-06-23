@@ -2,6 +2,9 @@ import { Page, Locator, expect } from '@playwright/test';
 import { verifyUrlContains } from '../utils/verifyUrlContains';
 import { verifyTextVisibleOrRetry } from '../utils/verifyTextVisibleOrRetry';
 import { filterHeader } from '../dicts/searchResults-dict';
+import { clickElementAtIndex } from '../utils/clickElementAtIndex';
+import { getElementTextAtIndex } from '../utils/getElementTextAtIndex';
+import { getRandomIndex } from '../utils/getRandomIndex';
 
 
 
@@ -10,12 +13,15 @@ export class SearchResultsPage {
     readonly searchPageUrl: string= '/category';
     readonly outletFilter: Locator;
     outletLinks: Locator;
+    productPrices: Locator;
 
 
     constructor(page: Page) {
         this.page = page;
         this.outletFilter = page.locator('label[for="6335"]');
         this.outletLinks = page.locator('a:has-text("[oferta Outlet]")');
+        this.productPrices = page.locator('div.flex-col.mt-2.inline-flex.flex-wrap > div.text-3xl.font-bold.leading-8');
+
     }
 
     async verifySearchPageUrl(timeout?: number) {
@@ -41,11 +47,22 @@ export class SearchResultsPage {
             expect(resultText).toContain('[oferta Outlet]');
         }
         return count;
+    }    
+
+    async getRandomOutletIndex() {
+        return getRandomIndex(this.outletLinks);
     }
 
-    async clickRandomOutletLink(): Promise<void> {
-        const count = await this.checkAllResultsContainOutlet();
-        const randomIndex = Math.floor(Math.random() * count);
-        await this.outletLinks.nth(randomIndex).click();
-      }
+    async clickOutletLinkAtIndex(index: number){
+        await clickElementAtIndex(this.outletLinks, index);
+    }
+
+    async getProductTitleAtIndex(index: number) {
+        return getElementTextAtIndex(this.outletLinks, index);
+    }
+
+    async getProductPriceAtIndex(index: number){
+        return getElementTextAtIndex(this.productPrices, index);
+    }
+    
 }

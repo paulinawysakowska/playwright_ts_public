@@ -8,6 +8,7 @@ export async function checkElement(
   expectedChecked: boolean | null = null,
   placeholder: string | null = null
 ) {
+
   // Scroll to the element to ensure it is in view
   await locator.scrollIntoViewIfNeeded();
   
