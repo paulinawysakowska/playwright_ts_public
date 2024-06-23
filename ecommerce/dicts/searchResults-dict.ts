@@ -1,2 +1,2 @@
-export const filterHeader= 'Filtrowanie'
-export const oytletFilterTxt= 'Oferta OUTLET!'
+export const filterHeader = 'Filtrowanie';
+export const oytletFilterTxt = 'Oferta OUTLET!';

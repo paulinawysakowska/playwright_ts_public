@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../fixtures/searchFixture'; 
+import { test } from '../fixtures/searchFixture';
 import { searchValues } from '../pages/main.page';
 import { ProductDetailsPage } from '../pages/productDetails.page';
 import { SearchResultsPage } from '../pages/searchResults.page';
@@ -11,7 +11,10 @@ let productPrice: string;
 
 test.describe('Add to the basket', () => {
   searchValues.forEach((searchValue) => {
-    test(`should add successfully for ${searchValue}`, async ({ page, performSearch }) => {
+    test(`should add successfully for ${searchValue}`, async ({
+      page,
+      performSearch
+    }) => {
       const searchResultsPage = new SearchResultsPage(page);
       const productPage = new ProductDetailsPage(page);
       const addToBasketPopUp = new AddToTheBasketPopUp(page);
@@ -21,10 +24,12 @@ test.describe('Add to the basket', () => {
 
       const randomIndex = await searchResultsPage.getRandomOutletIndex();
 
-      productTitle = await searchResultsPage.getProductTitleAtIndex(randomIndex);
+      productTitle =
+        await searchResultsPage.getProductTitleAtIndex(randomIndex);
       console.log(`Selected product title: ${productTitle}`);
 
-      productPrice = await searchResultsPage.getProductPriceAtIndex(randomIndex);
+      productPrice =
+        await searchResultsPage.getProductPriceAtIndex(randomIndex);
       console.log(`Selected product price: ${productPrice}`);
 
       await searchResultsPage.clickOutletLinkAtIndex(randomIndex);
@@ -32,21 +37,20 @@ test.describe('Add to the basket', () => {
       await productPage.verifyProductDetailsPageUrl();
       await productPage.waitForProductTitle();
 
-      const { title: fetchedTitle, price: fetchedPrice } = await productPage.getProductDetails();
+      const { title: fetchedTitle, price: fetchedPrice } =
+        await productPage.getProductDetails();
       expect(fetchedTitle).toBe(productTitle);
       expect(fetchedPrice).toBe(productPrice);
 
-      // Kliknij "Dodaj do koszyka"
       await productPage.clickAddToBasket();
 
-      // Weryfikacja wartości w okienku "Dodano do koszyka"
-      await addToBasketPopUp.verifyProductDetailsInPopUp(productTitle, productPrice);
+      await addToBasketPopUp.verifyProductDetailsInPopUp(
+        productTitle,
+        productPrice
+      );
 
-      // Kliknij "Przejdź do koszyka"
       await addToBasketPopUp.goToTheBasket();
-      console.log("Product added to basket and navigated to basket successfully");
 
-      // Weryfikacja na stronie koszyka
       await basketPage.verifyBasketPageUrl();
       await basketPage.verifyProductDetailsInBasket(productTitle, productPrice);
     });

@@ -27,7 +27,7 @@ test('create new account', async ({ page }) => {
   await registerPage.fillRegistrationForm();
   await registerPage.selectAgreementCheckbox();
   // await registerPage.simulateCaptcha();
-  // await page.waitForTimeout(10000); 
+  // await page.waitForTimeout(10000);
   // await registerPage.clickRegisterButton();
   // await confirmarionPopUp.checkConfirmRegistrationPopUp();
   // await confirmarionPopUp.clickUnderstoodButton();

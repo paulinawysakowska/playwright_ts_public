@@ -15,10 +15,10 @@ test.beforeEach(async ({ page }) => {
 test('check user credentials', async ({ page }) => {
   const mainPage = new MainPage(page);
   const logInPopUp = new LogInPopUpPage(page);
-  
+
   await logInPopUp.fillLogInForm();
   await logInPopUp.selectLogInButton();
-  await page.waitForTimeout(10000); 
+  await page.waitForTimeout(10000);
   await mainPage.checkUserStatus(true, logInTxt, yourAccountTxt);
 
   // add cleaning strings

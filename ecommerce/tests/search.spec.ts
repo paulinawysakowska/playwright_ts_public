@@ -2,7 +2,6 @@ import { test } from './setup';
 import { MainPage, searchValues } from '../pages/main.page';
 import { SearchResultsPage } from '../pages/searchResults.page';
 
-
 test.describe('Search Test', () => {
   searchValues.forEach((searchValue) => {
     test(`should search successfully for: ${searchValue}`, async ({ page }) => {
@@ -18,7 +17,6 @@ test.describe('Search Test', () => {
       await searchResultsPage.clickOutletFilter();
       await page.waitForTimeout(3000);
       await searchResultsPage.checkAllResultsContainOutlet();
-
     });
   });
 });
