@@ -1,12 +1,8 @@
 import { test } from './setup';
-import { MainPage } from '../pages/main.page';
+import { MainPage, searchValues } from '../pages/main.page';
 import { searchPlaceholderTxt } from '../dicts/main-dict';
 import { SearchResultsPage } from '../pages/searchResults.page';
 
-const searchValues = [
-  'telefon komórkowy',
-  // 'laptop',
-];
 
 test.beforeEach(async ({ page }) => {
   const mainPage = new MainPage(page);
@@ -27,9 +23,8 @@ test.describe('Search Test', () => {
       await searchResultsPage.verifyFilterHeader();
       await searchResultsPage.clickOutletFilter();
       await page.waitForTimeout(3000);
-      const resultCount = await searchResultsPage.checkAllResultsContainOutlet();
+      await searchResultsPage.checkAllResultsContainOutlet();
 
-      console.log(`Number of results containing '[oferta Outlet]': ${resultCount}`);
     });
   });
 });

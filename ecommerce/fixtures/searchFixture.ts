@@ -1,37 +1,31 @@
-import { test as baseTest } from '../tests/setup';
+import { test as base } from '../tests/setup';
 import { MainPage } from '../pages/main.page';
-import { SearchResultsPage } from '../pages/searchResults.page';
 import { searchPlaceholderTxt } from '../dicts/main-dict';
+import { SearchResultsPage } from '../pages/searchResults.page';
+import { searchValues } from '../pages/main.page';
 
-type SearchFixture = {
-  searchValue: string;
-  filteredResultCount: number;
-  mainPage: MainPage;
-  searchResultsPage: SearchResultsPage;
+type Fixtures = {
+  performSearch: (searchValue: string) => Promise<void>;
 };
 
-export const test = baseTest.extend<SearchFixture>({
-  searchValue: '',
-  mainPage: async ({ page }, use) => {
-    const mainPage = new MainPage(page);
-    await page.waitForSelector('#wp-autocomplete'); // Dodano oczekiwanie na element
-    await mainPage.checkSearchPlaceholder(searchPlaceholderTxt);
-    await use(mainPage);
-  },
-  searchResultsPage: async ({ page }, use) => {
-    const searchResultsPage = new SearchResultsPage(page);
-    await use(searchResultsPage);
-  },
-  filteredResultCount: async ({ page, mainPage, searchResultsPage, searchValue }, use) => {
-    await mainPage.fillSearch(searchValue);
-    await page.waitForTimeout(1000);
-    await mainPage.selectSearchButton();
-    await page.waitForTimeout(1000);
-    await searchResultsPage.verifySearchPageUrl();
-    await searchResultsPage.verifyFilterHeader();
-    await searchResultsPage.clickOutletFilter();
-    await page.waitForTimeout(3000);
-    const resultCount = await searchResultsPage.checkAllResultsContainOutlet();
-    await use(resultCount);
+const test = base.extend<Fixtures>({
+  performSearch: async ({ page }, use) => {
+    await use(async (searchValue: string) => {
+      const mainPage = new MainPage(page);
+      const searchResultsPage = new SearchResultsPage(page);
+
+      await mainPage.checkSearchPlaceholder(searchPlaceholderTxt);
+      await mainPage.fillSearch(searchValue);
+      await page.waitForTimeout(1000);
+      await mainPage.selectSearchButton();
+      await page.waitForTimeout(1000);
+      await searchResultsPage.verifySearchPageUrl();
+      await searchResultsPage.verifyFilterHeader();
+      await searchResultsPage.clickOutletFilter();
+      await page.waitForTimeout(3000);
+      await searchResultsPage.checkAllResultsContainOutlet();
+    });
   }
 });
+
+export { test };

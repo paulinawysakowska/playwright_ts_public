@@ -1,15 +1,14 @@
-import { test } from '../fixtures/searchFixture';
+import { test } from '../fixtures/searchFixture'; 
+import { searchValues } from '../pages/main.page';
+import { SearchResultsPage } from '../pages/searchResults.page';
 
-const searchValues = [
-  'telefon komórkowy',
-  // 'laptop',
-];
+test.describe('Add to the basket', () => {
+  searchValues.forEach((searchValue) => {
+    test(`should add successfully for ${searchValue}`, async ({ page, performSearch }) => {
+      const searchResultsPage = new SearchResultsPage(page);
 
-
-
-test.describe('Add thing to the basket', () => {
-  test('example additional test', async ({ filteredResultCount }) => {
-    // Dodaj dodatkowe testy, które mają korzystać z wyników wyszukiwania i filtrowania
-    console.log(`Number of results for additional test: ${filteredResultCount}`);
+      await performSearch(searchValue);
+      await searchResultsPage.clickRandomOutletLink();
+    });
   });
 });

@@ -2,6 +2,11 @@ import { Page, Locator, expect } from '@playwright/test';
 import { cookiePopUpHeaderTxt } from '../dicts/main-dict';
 import { checkPlaceholder } from '../utils/checkPlaceholder';
 
+export const searchValues = [
+    'telefon komórkowy',
+    // 'laptop',
+  ];
+
 export class MainPage {
     readonly page: Page;
     readonly url: string= 'https://www.komputronik.pl/';

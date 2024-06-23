@@ -4,6 +4,7 @@ import { verifyTextVisibleOrRetry } from '../utils/verifyTextVisibleOrRetry';
 import { filterHeader } from '../dicts/searchResults-dict';
 
 
+
 export class SearchResultsPage {
     readonly page: Page;
     readonly searchPageUrl: string= '/category';
@@ -41,4 +42,10 @@ export class SearchResultsPage {
         }
         return count;
     }
+
+    async clickRandomOutletLink(): Promise<void> {
+        const count = await this.checkAllResultsContainOutlet();
+        const randomIndex = Math.floor(Math.random() * count);
+        await this.outletLinks.nth(randomIndex).click();
+      }
 }
