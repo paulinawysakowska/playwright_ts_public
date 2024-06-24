@@ -21,8 +21,17 @@ To set up the project locally, follow these steps:
 
 2. **Install dependencies:**
     ```sh
-    npm install
+    npm install @faker-js/faker@8.4.1
+    npm install @playwright/test@1.44.1
+    npm install @types/node@20.14.8
+    npm install @typescript-eslint/eslint-plugin@7.14.1
+    npm install @typescript-eslint/parser@7.14.1
+    npm install 2captcha@3.0.5-2
+    npm install eslint@8.57.0
+    npm install typescript@5.5.2
     ```
+3. **Install playwright:**
+https://playwright.dev/docs/getting-started-vscode#installation
 
 ## Running Tests
 
