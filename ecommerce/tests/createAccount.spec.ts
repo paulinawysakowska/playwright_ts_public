@@ -7,7 +7,7 @@ import { attachScreenshot } from '../utils/attachScreenshot';
 
 const screenshotLabel = 'create-account-test';
 
-test('create new account', async ({ page, testInfo }) => {
+test('create new account', async ({ page }, testInfo) => {
     const mainPage = new MainPage(page);
     const logInPopUp = new LogInPopUpPage(page);
     const registerPage = new RegisterPage(page);

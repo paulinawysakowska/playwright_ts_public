@@ -3,8 +3,8 @@ import { Locator, expect } from '@playwright/test';
 export async function checkElement(
     locator: Locator,
     text: string | null = null,
-    checkClick: boolean = false,
-    isCheckbox: boolean = false,
+    checkClick = false,
+    isCheckbox = false,
     expectedChecked: boolean | null = null,
     placeholder: string | null = null
 ) {

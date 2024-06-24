@@ -7,7 +7,7 @@ import {
     logInHeaderTxt,
     rememberMeTxt,
     resetPasswordTxt,
-} from '../dicts/logIn-pop-up-dict';
+} from '../dicts/logInPopUp-dict';
 import { checkElement } from '../utils/checkElement';
 import * as fs from 'fs';
 
