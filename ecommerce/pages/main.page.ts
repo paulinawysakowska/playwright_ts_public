@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { cookiePopUpHeaderTxt, noButtonTxt } from '../dicts/main-dict';
+import { cookiePopUpHeaderTxt } from '../dicts/main-dict';
 import { checkPlaceholder } from '../utils/checkPlaceholder';
 
 export const searchValues = ['telefon komórkowy', 'apple watch'];

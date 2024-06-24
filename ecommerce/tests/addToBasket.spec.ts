@@ -17,8 +17,7 @@ test.describe('Add to the basket', () => {
         test(`should add successfully for ${searchValue}`, async ({
             page,
             performSearch,
-            testInfo,
-        }) => {
+        }, testInfo) => {
             const searchResultsPage = new SearchResultsPage(page);
             const productPage = new ProductDetailsPage(page);
             const addToBasketPopUp = new AddToTheBasketPopUp(page);

@@ -6,7 +6,7 @@ import { attachScreenshot } from '../utils/attachScreenshot';
 
 const screenshotLabel = 'log-in-test';
 
-test.beforeEach(async ({ page, testInfo }) => {
+test.beforeEach(async ({ page }, testInfo) => {
     const mainPage = new MainPage(page);
     const logInPopUp = new LogInPopUpPage(page);
 
@@ -18,7 +18,7 @@ test.beforeEach(async ({ page, testInfo }) => {
     await attachScreenshot(testInfo, page, screenshotLabel);
 });
 
-test('check user credentials', async ({ page, testInfo }) => {
+test('check user credentials', async ({ page }, testInfo) => {
     const mainPage = new MainPage(page);
     const logInPopUp = new LogInPopUpPage(page);
 

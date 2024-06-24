@@ -9,8 +9,7 @@ test.describe('Search Test', () => {
     searchValues.forEach((searchValue) => {
         test(`should search successfully for: ${searchValue}`, async ({
             page,
-            testInfo,
-        }) => {
+        }, testInfo) => {
             const mainPage = new MainPage(page);
             const searchResultsPage = new SearchResultsPage(page);
 
