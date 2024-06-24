@@ -13,58 +13,61 @@ let productPrice: string;
 const screenshotLabel = 'add-to-basket-test';
 
 test.describe('Add to the basket', () => {
-  searchValues.forEach((searchValue) => {
-    test(`should add successfully for ${searchValue}`, async ({
-      page,
-      performSearch,
-      testInfo
-    }) => {
-      const searchResultsPage = new SearchResultsPage(page);
-      const productPage = new ProductDetailsPage(page);
-      const addToBasketPopUp = new AddToTheBasketPopUp(page);
-      const basketPage = new BasketDetailsPage(page);
+    searchValues.forEach((searchValue) => {
+        test(`should add successfully for ${searchValue}`, async ({
+            page,
+            performSearch,
+            testInfo,
+        }) => {
+            const searchResultsPage = new SearchResultsPage(page);
+            const productPage = new ProductDetailsPage(page);
+            const addToBasketPopUp = new AddToTheBasketPopUp(page);
+            const basketPage = new BasketDetailsPage(page);
 
-      await attachScreenshot(testInfo, page, screenshotLabel);
+            await attachScreenshot(testInfo, page, screenshotLabel);
 
-      await performSearch(searchValue);
+            await performSearch(searchValue);
 
-      const randomIndex = await searchResultsPage.getRandomOutletIndex();
+            const randomIndex = await searchResultsPage.getRandomOutletIndex();
 
-      productTitle =
-        await searchResultsPage.getProductTitleAtIndex(randomIndex);
-      console.log(`Selected product title: ${productTitle}`);
+            productTitle =
+                await searchResultsPage.getProductTitleAtIndex(randomIndex);
+            console.log(`Selected product title: ${productTitle}`);
 
-      productPrice =
-        await searchResultsPage.getProductPriceAtIndex(randomIndex);
-      console.log(`Selected product price: ${productPrice}`);
+            productPrice =
+                await searchResultsPage.getProductPriceAtIndex(randomIndex);
+            console.log(`Selected product price: ${productPrice}`);
 
-      await searchResultsPage.clickOutletLinkAtIndex(randomIndex);
+            await searchResultsPage.clickOutletLinkAtIndex(randomIndex);
 
-      await attachScreenshot(testInfo, page, screenshotLabel);
+            await attachScreenshot(testInfo, page, screenshotLabel);
 
-      await productPage.verifyProductDetailsPageUrl();
-      await productPage.waitForProductTitle();
+            await productPage.verifyProductDetailsPageUrl();
+            await productPage.waitForProductTitle();
 
-      const { title: fetchedTitle, price: fetchedPrice } =
-        await productPage.getProductDetails();
-      expect(fetchedTitle).toBe(productTitle);
-      expect(fetchedPrice).toBe(productPrice);
+            const { title: fetchedTitle, price: fetchedPrice } =
+                await productPage.getProductDetails();
+            expect(fetchedTitle).toBe(productTitle);
+            expect(fetchedPrice).toBe(productPrice);
 
-      await productPage.clickAddToBasket();
+            await productPage.clickAddToBasket();
 
-      await attachScreenshot(testInfo, page, screenshotLabel);
+            await attachScreenshot(testInfo, page, screenshotLabel);
 
-      await addToBasketPopUp.verifyProductDetailsInPopUp(
-        productTitle,
-        productPrice
-      );
+            await addToBasketPopUp.verifyProductDetailsInPopUp(
+                productTitle,
+                productPrice
+            );
 
-      await addToBasketPopUp.goToTheBasket();
+            await addToBasketPopUp.goToTheBasket();
 
-      await attachScreenshot(testInfo, page, screenshotLabel);
+            await attachScreenshot(testInfo, page, screenshotLabel);
 
-      await basketPage.verifyBasketPageUrl();
-      await basketPage.verifyProductDetailsInBasket(productTitle, productPrice);
+            await basketPage.verifyBasketPageUrl();
+            await basketPage.verifyProductDetailsInBasket(
+                productTitle,
+                productPrice
+            );
+        });
     });
-  });
 });
