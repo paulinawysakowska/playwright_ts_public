@@ -1,12 +1,12 @@
 import { Page, Locator, expect, FrameLocator } from '@playwright/test';
 import { checkElement } from '../utils/checkElement';
 import {
-  additionalVerificationTxt,
-  agreementTxt,
-  emailPlaceholderTxt,
-  pageHeaderTxt,
-  passwordPlaceholderTxt,
-  postalCodePlaceholderTxt
+    additionalVerificationTxt,
+    agreementTxt,
+    emailPlaceholderTxt,
+    pageHeaderTxt,
+    passwordPlaceholderTxt,
+    postalCodePlaceholderTxt,
 } from '../dicts/register-dict';
 import { faker } from '@faker-js/faker';
 import * as fs from 'fs';
@@ -14,122 +14,128 @@ import { generatePassword } from '../utils/generatePassword';
 import { verifyUrlContains } from '../utils/verifyUrlContains';
 
 export class RegisterPage {
-  readonly page: Page;
-  readonly registerUrl: string = '/register';
-  readonly emailField: Locator;
-  readonly passwordField: Locator;
-  readonly postalCodeField: Locator;
-  readonly captchaField: Locator;
-  readonly checkboxField: Locator;
-  readonly registerButton: Locator;
-  readonly pageHeader: Locator;
-  readonly additionalVerificationField: Locator;
-  readonly captchaFrame: FrameLocator;
-  readonly captchaCheckbox: Locator;
-  readonly agreementLabel: Locator;
+    readonly page: Page;
+    readonly registerUrl: string = '/register';
+    readonly emailField: Locator;
+    readonly passwordField: Locator;
+    readonly postalCodeField: Locator;
+    readonly captchaField: Locator;
+    readonly checkboxField: Locator;
+    readonly registerButton: Locator;
+    readonly pageHeader: Locator;
+    readonly additionalVerificationField: Locator;
+    readonly captchaFrame: FrameLocator;
+    readonly captchaCheckbox: Locator;
+    readonly agreementLabel: Locator;
 
-  public userEmail: string;
-  public userPassword: string;
-  public userPostalCode: string;
+    public userEmail: string;
+    public userPassword: string;
+    public userPostalCode: string;
 
-  constructor(page: Page) {
-    this.page = page;
-    this.pageHeader = page.locator('div.heading').first();
-    this.emailField = page.locator('input[name="customer_login"]');
-    this.passwordField = page.locator('input[name="customer_password"]');
-    this.postalCodeField = page.locator('input[name="customer_postal_code"]');
-    this.additionalVerificationField = page.locator(
-      'div.heading.heading-regular'
-    );
-    this.captchaFrame = page
-      .frameLocator('iframe[src*="recaptcha/api2"]')
-      .first();
-    this.captchaCheckbox = this.captchaFrame.locator('#recaptcha-anchor');
-    this.agreementLabel = page.locator('label.text-low.at-company-rules');
-    this.checkboxField = page.locator('.checkbox').first();
-    this.registerButton = page.locator('button.btn.at-register-submit');
-  }
-
-  async verifyRegisterPageUrl() {
-    await verifyUrlContains(this.page, this.registerUrl);
-  }
-
-  async checkRegisterPage() {
-    const elements = [
-      { locator: this.pageHeader, text: pageHeaderTxt },
-      {
-        locator: this.emailField,
-        checkClick: true,
-        placeholder: emailPlaceholderTxt
-      },
-      {
-        locator: this.passwordField,
-        checkClick: true,
-        placeholder: passwordPlaceholderTxt
-      },
-      {
-        locator: this.postalCodeField,
-        checkClick: true,
-        placeholder: postalCodePlaceholderTxt
-      },
-      {
-        locator: this.additionalVerificationField,
-        text: additionalVerificationTxt
-      },
-      { locator: this.agreementLabel, text: agreementTxt },
-      { locator: this.checkboxField, isCheckbox: true, expectedChecked: false },
-      { locator: this.registerButton, checkClick: true }
-    ];
-
-    for (const element of elements) {
-      await checkElement(
-        element.locator,
-        element.text ?? null,
-        element.checkClick ?? false,
-        element.isCheckbox ?? false,
-        element.expectedChecked ?? null
-      );
+    constructor(page: Page) {
+        this.page = page;
+        this.pageHeader = page.locator('div.heading').first();
+        this.emailField = page.locator('input[name="customer_login"]');
+        this.passwordField = page.locator('input[name="customer_password"]');
+        this.postalCodeField = page.locator(
+            'input[name="customer_postal_code"]'
+        );
+        this.additionalVerificationField = page.locator(
+            'div.heading.heading-regular'
+        );
+        this.captchaFrame = page
+            .frameLocator('iframe[src*="recaptcha/api2"]')
+            .first();
+        this.captchaCheckbox = this.captchaFrame.locator('#recaptcha-anchor');
+        this.agreementLabel = page.locator('label.text-low.at-company-rules');
+        this.checkboxField = page.locator('.checkbox').first();
+        this.registerButton = page.locator('button.btn.at-register-submit');
     }
-  }
-  async simulateCaptcha() {
-    await this.page.waitForSelector('iframe[src*="recaptcha/api2"]');
-    await this.captchaCheckbox.click();
-    await this.page.waitForTimeout(1000);
-  }
 
-  async fillRegistrationForm() {
-    this.userEmail = faker.internet.email().toLowerCase();
-    this.userPassword = generatePassword();
-    let postalCode = faker.location.zipCode('#####');
-    postalCode = `${postalCode.slice(0, 2)}-${postalCode.slice(2)}`;
-    this.userPostalCode = postalCode;
+    async verifyRegisterPageUrl() {
+        await verifyUrlContains(this.page, this.registerUrl);
+    }
 
-    await this.emailField.fill(this.userEmail);
-    await this.passwordField.fill(this.userPassword);
-    await this.postalCodeField.fill(this.userPostalCode);
+    async checkRegisterPage() {
+        const elements = [
+            { locator: this.pageHeader, text: pageHeaderTxt },
+            {
+                locator: this.emailField,
+                checkClick: true,
+                placeholder: emailPlaceholderTxt,
+            },
+            {
+                locator: this.passwordField,
+                checkClick: true,
+                placeholder: passwordPlaceholderTxt,
+            },
+            {
+                locator: this.postalCodeField,
+                checkClick: true,
+                placeholder: postalCodePlaceholderTxt,
+            },
+            {
+                locator: this.additionalVerificationField,
+                text: additionalVerificationTxt,
+            },
+            { locator: this.agreementLabel, text: agreementTxt },
+            {
+                locator: this.checkboxField,
+                isCheckbox: true,
+                expectedChecked: false,
+            },
+            { locator: this.registerButton, checkClick: true },
+        ];
 
-    const userData = {
-      email: this.userEmail,
-      password: this.userPassword,
-      postalCode: this.userPostalCode
-    };
+        for (const element of elements) {
+            await checkElement(
+                element.locator,
+                element.text ?? null,
+                element.checkClick ?? false,
+                element.isCheckbox ?? false,
+                element.expectedChecked ?? null
+            );
+        }
+    }
+    async simulateCaptcha() {
+        await this.page.waitForSelector('iframe[src*="recaptcha/api2"]');
+        await this.captchaCheckbox.click();
+        await this.page.waitForTimeout(1000);
+    }
 
-    fs.writeFileSync('userData.json', JSON.stringify(userData, null, 2));
-  }
+    async fillRegistrationForm() {
+        this.userEmail = faker.internet.email().toLowerCase();
+        this.userPassword = generatePassword();
+        let postalCode = faker.location.zipCode('#####');
+        postalCode = `${postalCode.slice(0, 2)}-${postalCode.slice(2)}`;
+        this.userPostalCode = postalCode;
 
-  async selectAgreementCheckbox() {
-    await this.checkboxField.click();
-  }
+        await this.emailField.fill(this.userEmail);
+        await this.passwordField.fill(this.userPassword);
+        await this.postalCodeField.fill(this.userPostalCode);
 
-  async clickRegisterButton() {
-    await this.registerButton.click();
-  }
+        const userData = {
+            email: this.userEmail,
+            password: this.userPassword,
+            postalCode: this.userPostalCode,
+        };
 
-  async checkRegisterSuccess() {
-    await this.page.waitForSelector('div.heading.heading-regular');
-    const successMessage = await this.page
-      .locator('div.heading.heading-regular')
-      .textContent();
-    expect(successMessage).toContain('Thank you for registering');
-  }
+        fs.writeFileSync('userData.json', JSON.stringify(userData, null, 2));
+    }
+
+    async selectAgreementCheckbox() {
+        await this.checkboxField.click();
+    }
+
+    async clickRegisterButton() {
+        await this.registerButton.click();
+    }
+
+    async checkRegisterSuccess() {
+        await this.page.waitForSelector('div.heading.heading-regular');
+        const successMessage = await this.page
+            .locator('div.heading.heading-regular')
+            .textContent();
+        expect(successMessage).toContain('Thank you for registering');
+    }
 }
