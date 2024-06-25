@@ -12,6 +12,34 @@ import { faker } from '@faker-js/faker';
 import * as fs from 'fs';
 import { generatePassword } from '../utils/generatePassword';
 import { verifyUrlContains } from '../utils/verifyUrlContains';
+import { checkErrorMessage } from '../utils/checkErrorMessage';
+
+export const invalidEmails = [
+    '@mail.pl',
+    'annanowakmail.pl',
+    'anna.nowak@',
+    'anna.nowak@mail',
+    'anna.nowak!@mail.pl',
+    'anna.nowak@ma!l.pl',
+    'anna.nowak@.pl',
+    // ''
+];
+
+export const invalidPasswords = [
+    'a1',
+    'ab1',
+    // 'abc1',
+    // 'abcd1',
+    // 'abcde1',
+    // 'abcdef',
+    // 'password',
+    // 'qwerty',
+    // '123456',
+    // '789012',
+    // '000000',
+    // '!!!!!!',
+    // '@@@@@@',
+];
 
 export class RegisterPage {
     readonly page: Page;
@@ -31,6 +59,7 @@ export class RegisterPage {
     public userEmail: string;
     public userPassword: string;
     public userPostalCode: string;
+    readonly errorMessage: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -50,6 +79,9 @@ export class RegisterPage {
         this.agreementLabel = page.locator('label.text-low.at-company-rules');
         this.checkboxField = page.locator('.checkbox').first();
         this.registerButton = page.locator('button.btn.at-register-submit');
+        this.errorMessage = page.locator(
+            'div.form-alert.error[ng-message="pattern"]'
+        );
     }
 
     async verifyRegisterPageUrl() {
@@ -121,6 +153,22 @@ export class RegisterPage {
         };
 
         fs.writeFileSync('userData.json', JSON.stringify(userData, null, 2));
+    }
+
+    async fillInvalidEmail(email: string) {
+        await this.emailField.fill(email);
+    }
+
+    async fillInvalidPassword(password: string) {
+        await this.passwordField.fill(password);
+    }
+
+    async checkEmailErrorMessage(expectedErrorMessage: string) {
+        await checkErrorMessage(this.errorMessage, expectedErrorMessage);
+    }
+
+    async checkPasswordErrorMessage(expectedErrorMessage: string) {
+        await checkErrorMessage(this.errorMessage, expectedErrorMessage);
     }
 
     async selectAgreementCheckbox() {

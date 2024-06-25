@@ -1,11 +1,11 @@
 import { expect } from '@playwright/test';
-import { test } from '../fixtures/searchFixture';
-import { searchValues } from '../pages/main.page';
-import { ProductDetailsPage } from '../pages/productDetails.page';
-import { SearchResultsPage } from '../pages/searchResults.page';
-import { AddToTheBasketPopUp } from '../pages/addToTheBasketPopUp.page';
-import { BasketDetailsPage } from '../pages/basketDetails.page';
-import { attachScreenshot } from '../utils/attachScreenshot';
+import { test } from '../../fixtures/searchFixture';
+import { searchValues } from '../../pages/main.page';
+import { ProductDetailsPage } from '../../pages/productDetails.page';
+import { SearchResultsPage } from '../../pages/searchResults.page';
+import { AddToTheBasketPopUp } from '../../pages/addToTheBasketPopUp.page';
+import { BasketDetailsPage } from '../../pages/basketDetails.page';
+import { attachScreenshot } from '../../utils/attachScreenshot';
 
 let productTitle: string;
 let productPrice: string;

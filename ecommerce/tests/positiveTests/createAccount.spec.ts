@@ -1,9 +1,9 @@
-import { test } from './setup';
-import { MainPage } from '../pages/main.page';
-import { LogInPopUpPage } from '../pages/logInPopUp.page';
-import { RegisterPage } from '../pages/register.page';
-import { ConfirmationPopUp } from '../pages/confirmRegistrationPopUp.page';
-import { attachScreenshot } from '../utils/attachScreenshot';
+import { LogInPopUpPage } from '../../pages/logInPopUp.page';
+import { RegisterPage } from '../../pages/register.page';
+import { ConfirmationPopUp } from '../../pages/confirmRegistrationPopUp.page';
+import { attachScreenshot } from '../../utils/attachScreenshot';
+import { test } from '../setup';
+import { MainPage } from '../../pages/main.page';
 
 const screenshotLabel = 'create-account-test';
 

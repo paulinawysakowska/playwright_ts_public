@@ -1,7 +1,7 @@
-import { test } from './setup';
-import { MainPage, searchValues } from '../pages/main.page';
-import { SearchResultsPage } from '../pages/searchResults.page';
-import { attachScreenshot } from '../utils/attachScreenshot';
+import { MainPage, searchValues } from '../../pages/main.page';
+import { SearchResultsPage } from '../../pages/searchResults.page';
+import { attachScreenshot } from '../../utils/attachScreenshot';
+import { test } from '../setup';
 
 const screenshotLabel = 'search-test';
 
