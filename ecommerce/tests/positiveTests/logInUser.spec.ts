@@ -1,8 +1,8 @@
-import { test } from './setup';
-import { MainPage } from '../pages/main.page';
-import { LogInPopUpPage } from '../pages/logInPopUp.page';
-import { logInTxt, yourAccountTxt } from '../dicts/main-dict';
-import { attachScreenshot } from '../utils/attachScreenshot';
+import { MainPage } from '../../pages/main.page';
+import { LogInPopUpPage } from '../../pages/logInPopUp.page';
+import { logInTxt, yourAccountTxt } from '../../dicts/main-dict';
+import { attachScreenshot } from '../../utils/attachScreenshot';
+import { test } from '../setup';
 
 const screenshotLabel = 'log-in-test';
 
