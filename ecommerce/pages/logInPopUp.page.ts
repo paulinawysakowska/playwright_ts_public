@@ -61,7 +61,6 @@ export class LogInPopUpPage {
             {
                 locator: this.logInTopUpHeader,
                 text: logInHeaderTxt,
-                checkClick: false,
             },
             { locator: this.loginField, checkClick: true },
             { locator: this.passwordField, checkClick: true },
@@ -99,15 +98,15 @@ export class LogInPopUpPage {
         ];
 
         for (const element of elements) {
-            await checkElement(
-                element.locator,
-                element.text ?? null,
-                element.checkClick ?? false,
-                element.isCheckbox ?? false,
-                element.expectedChecked ?? null
-            );
+            await checkElement(element.locator, {
+                text: element.text,
+                checkClick: element.checkClick,
+                isCheckbox: element.isCheckbox,
+                expectedChecked: element.expectedChecked,
+            });
         }
     }
+
     async selectCreateAccountButton() {
         await this.createAccountButton.click();
     }

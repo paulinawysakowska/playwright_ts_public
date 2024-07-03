@@ -14,6 +14,7 @@ export class ConfirmationPopUp {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.sucessHeader = page.locator(
             'h2.pr-12.font-headline.text-lg.font-bold.lg\\:text-2xl'
         );
@@ -35,11 +36,10 @@ export class ConfirmationPopUp {
         ];
 
         for (const element of elements) {
-            await checkElement(
-                element.locator,
-                element.text ?? null,
-                element.checkClick ?? false
-            );
+            await checkElement(element.locator, {
+                text: element.text,
+                checkClick: element.checkClick,
+            });
         }
     }
 

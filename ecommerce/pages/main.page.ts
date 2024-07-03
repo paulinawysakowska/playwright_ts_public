@@ -6,7 +6,8 @@ export const searchValues = ['telefon komórkowy', 'apple watch'];
 
 export class MainPage {
     readonly page: Page;
-    readonly url: string = 'https://www.komputronik.pl/';
+    // page has to be added below
+    readonly url: string = '';
     readonly cookiesApproveButton: Locator;
     readonly userButton: Locator;
     readonly cookiesPopUp: Locator;
@@ -18,6 +19,7 @@ export class MainPage {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.cookiesPopUp = page.getByRole('heading', {
             name: cookiePopUpHeaderTxt,
         });

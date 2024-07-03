@@ -30,7 +30,10 @@ export async function checkClickability(locator: Locator) {
     }
 }
 
-export async function checkCheckboxState(locator: Locator, expectedChecked: boolean) {
+export async function checkCheckboxState(
+    locator: Locator,
+    expectedChecked: boolean
+) {
     const isChecked = await locator.isChecked();
     if (isChecked !== expectedChecked) {
         throw new Error(
@@ -42,11 +45,11 @@ export async function checkCheckboxState(locator: Locator, expectedChecked: bool
 export async function checkElement(
     locator: Locator,
     options: {
-        text?: string,
-        checkClick?: boolean,
-        isCheckbox?: boolean,
-        expectedChecked?: boolean,
-        placeholder?: string
+        text?: string;
+        checkClick?: boolean;
+        isCheckbox?: boolean;
+        expectedChecked?: boolean;
+        placeholder?: string;
     } = {}
 ) {
     const {
@@ -54,7 +57,7 @@ export async function checkElement(
         checkClick = false,
         isCheckbox = false,
         expectedChecked,
-        placeholder
+        placeholder,
     } = options;
 
     await scrollToElement(locator);

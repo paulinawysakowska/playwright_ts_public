@@ -120,15 +120,16 @@ export class RegisterPage {
         ];
 
         for (const element of elements) {
-            await checkElement(
-                element.locator,
-                element.text ?? null,
-                element.checkClick ?? false,
-                element.isCheckbox ?? false,
-                element.expectedChecked ?? null
-            );
+            await checkElement(element.locator, {
+                text: element.text,
+                checkClick: element.checkClick,
+                isCheckbox: element.isCheckbox,
+                expectedChecked: element.expectedChecked,
+                placeholder: element.placeholder,
+            });
         }
     }
+
     async simulateCaptcha() {
         await this.page.waitForSelector('iframe[src*="recaptcha/api2"]');
         await this.captchaCheckbox.click();

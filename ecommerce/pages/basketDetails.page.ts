@@ -10,6 +10,7 @@ export class BasketDetailsPage {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.productTitle = page.locator('a.cart-table__elem-name-title');
         this.productPrice = page.locator('strong.at-price-0');
     }

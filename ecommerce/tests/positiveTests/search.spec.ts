@@ -16,16 +16,16 @@ test.describe('Search Test', () => {
             await attachScreenshot(testInfo, page, screenshotLabel);
 
             await mainPage.fillSearch(searchValue);
-            await page.waitForTimeout(1000);
+            // await page.waitForTimeout(1000);
             await mainPage.selectSearchButton();
-            await page.waitForTimeout(1000);
+            // await page.waitForTimeout(1000);
 
             await attachScreenshot(testInfo, page, screenshotLabel);
 
             await searchResultsPage.verifySearchPageUrl();
             await searchResultsPage.verifyFilterHeader();
             await searchResultsPage.clickOutletFilter();
-            await page.waitForTimeout(3000);
+            // await page.waitForTimeout(3000);
 
             await attachScreenshot(testInfo, page, screenshotLabel);
 
