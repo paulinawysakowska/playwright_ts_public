@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@playwright/test": "^1.44.1",
+    "@playwright/test": "^1.45.1",
     "@types/node": "^20.14.8",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.14.1",
@@ -12,7 +12,6 @@
     "prettier-format": "prettier --config .prettierrc 'ecommerce/**/*.ts' --write",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix"
-
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
