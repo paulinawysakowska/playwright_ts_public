@@ -15,6 +15,7 @@ export class SearchResultsPage {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.outletFilter = page.locator('label[for="6335"]');
         this.outletLinks = page.locator(`a:has-text("${outletFilterTxt}")`);
         this.productPrices = page.locator(

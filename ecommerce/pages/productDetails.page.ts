@@ -12,6 +12,7 @@ export class ProductDetailsPage {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.productTitle = page.locator('h1');
         this.productPrice = page
             .locator(

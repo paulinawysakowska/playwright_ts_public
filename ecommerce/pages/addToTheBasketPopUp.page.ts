@@ -8,6 +8,7 @@ export class AddToTheBasketPopUp {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.productTitle = page.locator('span.text-sm.font-semibold');
         this.productPrice = page.locator(
             'div.text-base.font-bold.lg\\:text-2xl'
