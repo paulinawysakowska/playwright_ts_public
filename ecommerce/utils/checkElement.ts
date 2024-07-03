@@ -1,67 +1,78 @@
 import { Locator, expect } from '@playwright/test';
 
+export async function scrollToElement(locator: Locator) {
+    await locator.scrollIntoViewIfNeeded();
+}
+
+export async function ensureElementVisible(locator: Locator) {
+    await expect(locator).toBeVisible();
+}
+
+export async function checkTextContent(locator: Locator, text: string) {
+    await expect(locator).toHaveText(text);
+}
+
+export async function checkPlaceholder(locator: Locator, placeholder: string) {
+    const actualPlaceholder = await locator.getAttribute('placeholder');
+    if (actualPlaceholder !== placeholder) {
+        throw new Error(
+            `Placeholder is incorrect. Expected: ${placeholder}, Found: ${actualPlaceholder}`
+        );
+    }
+}
+
+export async function checkClickability(locator: Locator) {
+    await expect(locator).toBeEnabled();
+    try {
+        await locator.click({ trial: true });
+    } catch (e) {
+        throw new Error(`Element is not clickable: ${e.message}`);
+    }
+}
+
+export async function checkCheckboxState(locator: Locator, expectedChecked: boolean) {
+    const isChecked = await locator.isChecked();
+    if (isChecked !== expectedChecked) {
+        throw new Error(
+            `Checkbox state is incorrect. Expected: ${expectedChecked}, Found: ${isChecked}`
+        );
+    }
+}
+
 export async function checkElement(
     locator: Locator,
-    text: string | null = null,
-    checkClick = false,
-    isCheckbox = false,
-    expectedChecked: boolean | null = null,
-    placeholder: string | null = null
+    options: {
+        text?: string,
+        checkClick?: boolean,
+        isCheckbox?: boolean,
+        expectedChecked?: boolean,
+        placeholder?: string
+    } = {}
 ) {
-    // Scroll to the element to ensure it is in view
-    await locator.scrollIntoViewIfNeeded();
+    const {
+        text,
+        checkClick = false,
+        isCheckbox = false,
+        expectedChecked,
+        placeholder
+    } = options;
 
-    // Ensure the element is visible
-    await expect(locator).toBeVisible();
+    await scrollToElement(locator);
+    await ensureElementVisible(locator);
 
-    // Check the text content if provided
-    if (text !== null) {
-        await expect(locator).toHaveText(text);
+    if (text) {
+        await checkTextContent(locator, text);
     }
 
-    // Check the placeholder attribute if provided
-    if (placeholder !== null) {
-        const actualPlaceholder = await locator.getAttribute('placeholder');
-        if (actualPlaceholder !== placeholder) {
-            throw new Error(
-                `Placeholder is incorrect. Expected: ${placeholder}, Found: ${actualPlaceholder}`
-            );
-        }
+    if (placeholder) {
+        await checkPlaceholder(locator, placeholder);
     }
 
-    // Check if the element can be clicked if required
     if (checkClick) {
-        await expect(locator).toBeEnabled();
-        try {
-            await locator.click({ trial: true });
-        } catch (e) {
-            throw new Error(`Element is not clickable: ${e.message}`);
-        }
+        await checkClickability(locator);
     }
 
-    // Check the checkbox state if it is a checkbox
-    if (isCheckbox && expectedChecked !== null) {
-        const isInputCheckbox = await locator.evaluate(
-            (el: HTMLElement) =>
-                el.tagName === 'INPUT' &&
-                (el as HTMLInputElement).type === 'checkbox'
-        );
-        if (isInputCheckbox) {
-            const isChecked = await locator.isChecked();
-            if (isChecked !== expectedChecked) {
-                throw new Error(
-                    `Checkbox state is incorrect. Expected: ${expectedChecked}, Found: ${isChecked}`
-                );
-            }
-        } else {
-            const actualChecked = await locator.evaluate(
-                (el: HTMLElement) => el.getAttribute('data-checked') === '1'
-            );
-            if (actualChecked !== expectedChecked) {
-                throw new Error(
-                    `Checkbox state is incorrect. Expected: ${expectedChecked}, Found: ${actualChecked}`
-                );
-            }
-        }
+    if (isCheckbox && expectedChecked !== undefined) {
+        await checkCheckboxState(locator, expectedChecked);
     }
 }
