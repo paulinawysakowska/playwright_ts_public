@@ -1,3 +1,5 @@
+//  TODO: move this function to a different modules
+
 import { Locator, expect } from '@playwright/test';
 
 export async function scrollToElement(locator: Locator) {

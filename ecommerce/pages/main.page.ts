@@ -37,12 +37,6 @@ export class MainPage {
         await this.page.goto(this.url);
     }
 
-    async closeCookiesPopUp() {
-        if (await this.cookiesPopUp.isVisible()) {
-            await this.cookiesApproveButton.click();
-            await expect(this.cookiesPopUp).not.toBeVisible();
-        }
-    }
     async checkPageTitle(expectedTitle: string) {
         const title = await this.page.title();
         expect(title).toBe(expectedTitle);
@@ -67,6 +61,7 @@ export class MainPage {
             expect(userButtonText).not.toContain(yourAccountTxt);
         }
     }
+
     async checkSearchPlaceholder(expectedPlaceholder: string) {
         await checkPlaceholder(this.searchInput, expectedPlaceholder);
     }
