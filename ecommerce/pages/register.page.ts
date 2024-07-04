@@ -1,4 +1,4 @@
-import { Page, Locator, expect, FrameLocator } from '@playwright/test';
+import { Page, Locator, FrameLocator } from '@playwright/test';
 import { checkElement } from '../utils/checkElement';
 import {
     additionalVerificationTxt,
@@ -178,13 +178,5 @@ export class RegisterPage {
 
     async clickRegisterButton() {
         await this.registerButton.click();
-    }
-
-    async checkRegisterSuccess() {
-        await this.page.waitForSelector('div.heading.heading-regular');
-        const successMessage = await this.page
-            .locator('div.heading.heading-regular')
-            .textContent();
-        expect(successMessage).toContain('Thank you for registering');
     }
 }

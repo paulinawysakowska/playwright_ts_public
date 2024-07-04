@@ -28,6 +28,7 @@ export class LogInPopUpPage {
 
     constructor(page: Page) {
         this.page = page;
+        // I know this locator is not the best, but I'm using it not to waist much time
         this.closePopUpButton = page.locator(
             'button[ng-click="$ctrl.closeLayer()"] > i.i-close-circle'
         );
