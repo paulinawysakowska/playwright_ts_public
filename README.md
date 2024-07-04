@@ -2,6 +2,17 @@
 
 This repository contains a suite of automated tests using Playwright. The tests cover various functionalities, such as searching for products, adding them to the basket, and verifying basket details.
 
+## Disclamer:
+
+The tests in this project were created for an existing website (the address has been removed) and may not function properly.
+
+Due to the lack of access to the development environment, these tests are not perfect:
+
+- **CAPTCHA Handling:** There may be an issue with handling CAPTCHA as I do not have access to its API.
+- **Object Locators:** The object locators on the site should be improved for greater stability. I used the locators that were most readily available without focusing on their optimization, as my primary goal was to create the initial code.
+- **Timeouts:** In some parts of the tests, there are commented-out timeouts. The site was not stable during development, and these timeouts were used temporarily. If I had access to the documentation, I could have implemented handling by waiting for the appropriate requests. In the future, I may add functionality to wait for the visibility of certain elements.
+
+
 ## Table of Contents
 - [Installation](#installation)
 - [Running Tests](#running-tests)
